@@ -1,0 +1,42 @@
+Alphabet:
+- Upper and lower case letters of the English alphabet (A-Z, a-z)
+- Digits (0-9)
+- Underscore (_)
+
+Operators:
+- Arithmetic Operators: +, -, *, /, %
+- Assignment Operator: :=
+- Relational Operators: <, <=, =, >=, >, !=
+
+Separators:
+- ( ), ;, , , space
+
+Reserved Words:
+- start, end, let, integer, bool, string, array, of, do, done, input, output, if, then, else, endif, while
+
+Identifiers:
+- Must begin with a letter and may contain letters and digits.
+- Examples: counter, value1, result
+
+Constants:
+1. Integer:
+   <non-zero digit> ::= 1 | ... | 9
+   <digit> ::= 0 | 1 | ... | 9
+   <sign> ::= + | -
+   <unsigned integer> ::= <digit> {<digit>}
+   <signed integer> ::= 0 | <unsigned integer> | <sign> <unsigned integer>
+
+2. Float:
+   <float> ::= <signed integer> "." <digit> {<digit>}
+
+3. String:
+   <string> ::= '"' {<char>} '"'
+   <char> ::= <letter> | <digit> | <special symbol>
+   - Only literal characters allowed within strings, no escape characters.
+
+4. Boolean:
+   <bool> ::= "true" | "false"
+
+Special Symbols:
+- Special symbols allowed within strings include punctuation characters and symbols such as: . , ? ! : ' 
+- These symbols can appear inside strings but are not valid as standalone tokens outside of strings.

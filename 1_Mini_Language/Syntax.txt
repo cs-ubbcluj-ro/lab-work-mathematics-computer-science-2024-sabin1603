@@ -1,0 +1,49 @@
+Program Structure:
+program ::= "start" decllist mainstmt "finish"
+
+Declarations:
+decllist ::= declaration ";" decllist | declaration
+declaration ::= "let" identifier ":" type
+type ::= "integer" | "float" | "bool" | "string" | structdecl | arraydecl
+basictype ::= "integer" | "float"
+size ::= integer
+structdecl ::= "struct" "{" decllist "}"
+arraydecl ::= "array" "[" size "]" "(" basictype ")"
+
+
+Main Statements:
+mainstmt ::= "begin" stmtlist "end"
+stmtlist ::= stmt ";" stmtlist | stmt
+
+Statements:
+1. Assignment:
+   assignstmt ::= identifier ":=" expression
+
+2. Input/Output:
+   iostmt ::= "input" "(" identifier ")" | "output" "(" identifier ")"
+
+3. Conditional:
+   ifstmt ::= "if" condition "then" stmtlist ["else" stmtlist] "endif"
+
+4. Loop:
+   loopstmt ::= "while" condition "do" stmtlist "done"
+
+5. Increment: 
+   incrementstmt ::= "increment" "(" identifier ")"
+
+
+Expressions:
+expression ::= term {("+" | "-") term}
+term ::= factor {("*" | "/") factor}
+factor ::= identifier | integer | float | "(" expression ")"
+
+Conditions:
+condition ::= expression relop expression
+relop ::= < | <= | = | >= | > | !=
+
+Array Access:
+To access an array element: array "[" index "]"
+Example: myArray[3]
+
+Identifiers:
+identifier ::= letter {letter | digit}
