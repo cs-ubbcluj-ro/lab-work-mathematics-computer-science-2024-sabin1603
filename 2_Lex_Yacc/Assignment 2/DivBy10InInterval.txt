@@ -1,0 +1,24 @@
+start
+
+    let a : integer;
+    let b : integer;
+    let counter : integer;
+begin
+    1a2b
+    input(a);
+    input(b);
+    divisibleCount := 0;
+    counter := a;
+
+    while counter <= b do
+        if (counter % 10 = 0) then
+            increment(divisibleCount);
+        endif;
+        increment(counter);
+    done;
+
+    output(divisibleCount);
+
+end
+
+finish
