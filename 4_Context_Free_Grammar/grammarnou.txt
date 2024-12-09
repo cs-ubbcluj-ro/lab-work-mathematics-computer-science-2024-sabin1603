@@ -1,0 +1,112 @@
+# This grammar defines the syntax of your mini-language in a context-free grammar (CFG) format.
+S ::= <program>
+
+N ::= <program> | <declaration_list> | <declaration> | <statement_list> | <statement> | <if_statement> | <while_statement> | <expression> | <arithmetic_expression> | <relational_expression> | <identifier> | <constant> | <identifier_tail> | <integer_tail> |<float> | <float_tail> | <string> | <string_tail> | <read_statement> | <write_statement> | <compound_statement>
+# Non-terminals
+
+T ::= start | finish | let | integer | float | bool | string | struct | array | input | output | if | then | else | while | do | done | begin | end | increment | + | - | * | / | % | := | < | <= | = | >= | > | != | ( | ) | : | ; | " | " "
+# Terminals
+
+P ::= 
+# The top-level structure of a program
+<program> ::= "start" <declaration_list> <compound_statement> "finish"
+# A program consists of declarations followed by a compound statement.
+
+<declaration_list> ::= <declaration> <declaration_list> 
+                     | epsilon
+# Declarations can be recursive or empty (epsilon).
+
+<declaration> ::= "let" <identifier> ":" <type> ";"
+<type> ::= "integer" | "float" | "bool" | "string" | <struct_declaration> | <array_declaration>
+<struct_declaration> ::= "struct" "(" <declaration_list> ")"
+<array_declaration> ::= "array" "(" <integer> ")" "(" <basic_type> ")"
+<basic_type> ::= "integer" | "float"
+# Variable declarations support basic types, arrays, and structs.
+
+<compound_statement> ::= "begin" <statement_list> "end"
+<statement_list> ::= <statement> <statement_list> 
+                   | epsilon
+# Compound statements contain a sequence of statements.
+
+<statement> ::= <assignment_statement> 
+              | <io_statement>
+              | <if_statement>
+              | <while_statement>
+              | <increment_statement>
+# Statements include assignments, control flow, I/O, and increment operations.
+
+<assignment_statement> ::= <identifier> ":=" <expression> ";"
+# Assigns the result of an expression to an identifier.
+
+<io_statement> ::= "input" "(" <identifier> ")" ";"
+                 | "output" "(" <identifier> ")" ";"
+# I/O statements include input and output operations.
+
+<if_statement> ::= "if" <condition> "then" <statement_list> | "else" <statement_list> "endif"
+# If-else statements support optional else branches.
+
+<while_statement> ::= "while" <condition> "do" <statement_list> "done"
+# A while loop executes statements while the condition is true.
+
+<increment_statement> ::= "increment" "(" <identifier> ")" ";"
+# Increments the value of an identifier by 1.
+
+<expression> ::= <term> <expression_prime>
+<expression_prime> ::= "+" <term> <expression_prime> 
+                     | "-" <term> <expression_prime> 
+                     | epsilon
+# Expressions support addition and subtraction.
+
+<term> ::= <factor> <term_prime>
+<term_prime> ::= "*" <factor> <term_prime>
+               | "/" <factor> <term_prime>
+               | "%" <factor> <term_prime>
+               | epsilon
+# Terms support multiplication, division, and modulus.
+
+<factor> ::= <identifier>
+           | <constant>
+           | "(" <expression> ")"
+# Factors are identifiers, constants, or parenthesized expressions.
+
+<condition> ::= <expression> <relational_operator> <expression>
+# Conditions compare two expressions using relational operators.
+
+<relational_operator> ::= "<" | "<=" | "=" | ">=" | ">" | "!="
+# Relational operators include standard comparison operators.
+
+<identifier> ::= <letter> <letter_or_digit> <identifier_tail>
+<identifier_tail> ::= <letter_or_digit> <identifier_tail> | epsilon
+<letter> ::= "a" | ... | "z" | "A" | ... | "Z"
+<digit> ::= "0" | ... | "9"
+# Identifiers must begin with a letter and can include letters and digits.
+
+<constant> ::= <integer> | <float> | <string>
+# Constants include integers, floats, and strings.
+
+<integer> ::= <signed_integer>
+<signed_integer> ::= "+" <unsigned_integer>
+                   | "-" <unsigned_integer>
+                   | <unsigned_integer>
+<unsigned_integer> ::= <digit> <unsigned_integer_tail>
+<unsigned_integer_tail> ::= <digit> <unsigned_integer_tail> | epsilon
+# Integers can be signed or unsigned.
+
+<float> ::= <signed_integer> "." <digit> <float_tail>
+<float_tail> ::= <digit> <float_tail> | epsilon
+# Floats consist of a signed integer part followed by a decimal point and digits.
+
+<string> ::= '"' <char> <string_tail> '"'
+<string_tail> ::= <char> <string_tail> | epsilon
+# Strings are enclosed in double quotes and consist of characters.
+
+# Documentation
+The grammar defines the structure of the mini-language for parsing purposes. Each non-terminal represents a syntactic rule defined in Syntax.txt, and the terminals correspond to tokens in Lexic.txt.
+For example, the solution program in DivBy10InInterval.txt would be parsed using these rules:
+
+1. "start" matches the <program> rule.
+2. Variable declarations match <declaration_list>.
+3. Statements inside "begin" and "end" are parsed as <statement_list>.
+4. Conditions in "if" and "while" statements follow <condition> rules.
+
+Refer to Syntax.txt and Lexic.txt for detailed specifications of tokens and rules.
